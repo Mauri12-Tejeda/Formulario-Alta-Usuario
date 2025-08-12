@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Alta de Usuario - Ministerio de Seguridad</title>
+  <style>
+    .encabezado-formulario {
+    margin-bottom: 20px;
+}
+
+.fila-superior {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #333;
+}
+
+.fila-superior img {
+  width: 55px;
+  height: auto;
+}
+
+.ministerio-texto {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+}
+
+.titulos-principales {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.titulos-principales h1 {
+  font-size: 20px;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.titulos-principales h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #003366;
+      padding: 20px;
+    }
+
+    .formulario {
+      background: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 900px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .seccion {
+      margin-bottom: 20px;
+      border: 1px solid #999;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .seccion h3 {
+      background: #007BFF;
+      padding: 5px 10px;
+      margin: -15px -15px 15px -15px;
+      font-size: 16px;
+    }
+
+    .grupo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .campo {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      height: 32px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="formulario">
+<hr>
+<div class="logo-area">
+    
+  </div>
+  <h1>Directorio Activo - Dominio</h1>
+  <h2>Formulario de solicitud Alta de Usuario de Windows</h2>
+
+  <div class="seccion">
+    <h3>Solicitud</h3>
+    <div class="grupo">
+      <div class="campo">
+        <label for="fecha">Fecha de Solicitud</label>
+        <input type="date" id="fecha">
+      </div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <h3>Datos del Solicitante a Crear Usuario</h3>
+    <div class="grupo">
+      <div class="campo">
+        <label>Apellido y Nombres</label>
+        <input type="text" id="nombre">
+      </div>
+      <div class="campo">
+        <label>Nro de CUIL</label>
+        <input type="text" id="cuil">
+      </div>
+    </div>
+    <div class="grupo">
+      <div class="campo">
+        <label>LP</label>
+        <input type="text" id="lp">
+      </div>
+      <div class="campo">
+        <label>Grado/Jerarquía</label>
+        <input type="text" id="grado">
+      </div>
+    </div>
+    <div class="grupo">
+      <div class="campo">
+        <label>Subsecretaría / Superintendencia</label>
+        <input type="text" id="subsecretaria">
+      </div>
+    </div>
+    <div class="grupo">
+      <div class="campo">
+        <label>División / Departamento</label>
+        <input type="text" id="division">
+      </div>
+      <div class="campo">
+        <label>Dependencia</label>
+        <input type="text" id="dependencia">
+      </div>
+    </div>
+    <div class="grupo">
+      <div class="campo">
+        <label>Calle</label>
+        <input type="text" id="calle">
+      </div>
+      <div class="campo">
+        <label>Nro</label>
+        <input type="text" id="nro">
+      </div>
+      <div class="campo">
+        <label>Piso</label>
+        <input type="text" id="piso">
+      </div>
+    </div>
+    <div class="grupo">
+      <div class="campo">
+        <label>E-mail Personal Institucional</label>
+        <input type="email" id="email">
+      </div>
+      <div class="campo">
+        <label>Teléfono / Interno</label>
+        <input type="text" id="telefono">
+      </div>
+    </div>
+  </div>
+
+  <div class="seccion">
+    <h3>Responsable de la Dependencia</h3>
+    <div class="grupo">
+      <div class="campo">
+        <label>Apellido y Nombres</label>
+        <input type="text" id="resp_nombre">
+      </div>
+      <div class="campo">
+        <label>Cargo</label>
+        <input type="text" id="resp_cargo">
+      </div>
+      <div class="campo">
+        <label>LP</label>
+        <input type="text" id="resp_lp">
+      </div>
+    </div>
+    <div class="grupo">
+      <div class="campo">
+        <label>División / Departamento</label>
+        <input type="text" id="resp_division">
+      </div>
+      <div class="campo">
+        <label>E-mail Institucional</label>
+        <input type="email" id="resp_email">
+      </div>
+      <div class="campo">
+        <label>Teléfono / Interno</label>
+        <input type="text" id="resp_telefono">
+      </div>
+    </div>
+  </div>
+
+
+    <button onclick="descargarFormulario()">Convertir a PDF</button>
+</div>
+
+<script>
+  async function descargarFormulario() {
+    const { jsPDF } = window.jspdf;
+
+    const formulario = document.querySelector('.formulario');
+    if (!formulario) {
+      alert("No se encontró el formulario.");
+      return;
+    }
+
+    const doc = new jsPDF('p', 'mm', 'a4');
+
+    // Aumentamos la escala para mejor calidad
+    const canvas = await html2canvas(formulario, {
+      scale: 2,
+      useCORS: true
+    });
+
+    
+
+    const imgData = canvas.toDataURL('image/png');
+    const pdfWidth = doc.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    doc.save('formulario_alta_usuario.pdf');
+  }
+</script>
+
+
+
+</body>
+</html>
