@@ -153,7 +153,7 @@
       </div>
       <div class="campo">
         <label>Nro de CUIL</label>
-        <input type="text" id="cuil">
+        <input type="text" id="cuil" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
       </div>
     </div>
     <div class="grupo">
@@ -277,4 +277,5 @@
 
 </body>
 </html>
+
 
