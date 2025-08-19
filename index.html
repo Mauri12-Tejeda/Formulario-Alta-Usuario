@@ -1,53 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <meta charset="UTF-8">
   <title>Alta de Usuario - Ministerio de Seguridad</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
   <style>
-    .encabezado-formulario {
-    margin-bottom: 20px;
-}
-
-.fila-superior {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 15px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #333;
-}
-
-.fila-superior img {
-  width: 55px;
-  height: auto;
-}
-
-.ministerio-texto {
-  font-size: 14px;
-  font-weight: bold;
-  color: #000;
-}
-
-.titulos-principales {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.titulos-principales h1 {
-  font-size: 20px;
-  margin: 5px 0;
-  font-weight: bold;
-}
-
-.titulos-principales h2 {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 0;
-}
-
     body {
       font-family: Arial, sans-serif;
       background-color: #003366;
@@ -77,6 +37,7 @@
 
     .seccion h3 {
       background: #007BFF;
+      color: white;
       padding: 5px 10px;
       margin: -15px -15px 15px -15px;
       font-size: 16px;
@@ -126,11 +87,7 @@
 </head>
 <body>
 
-<div class="formulario">
-<hr>
-<div class="logo-area">
-    
-  </div>
+<form id="formAlta" class="formulario">
   <h1>Dominio - Ministerio De Seguridad</h1>
   <h2>Formulario de solicitud Alta de Usuario de Dominio</h2>
 
@@ -139,7 +96,7 @@
     <div class="grupo">
       <div class="campo">
         <label for="fecha">Fecha de Solicitud</label>
-        <input type="date" id="fecha">
+        <input type="date" id="fecha" name="fecha">
       </div>
     </div>
   </div>
@@ -149,61 +106,61 @@
     <div class="grupo">
       <div class="campo">
         <label>Apellido y Nombres</label>
-        <input type="text" id="nombre">
+        <input type="text" id="nombre" name="nombre">
       </div>
       <div class="campo">
         <label>Nro de CUIL</label>
-        <input type="text" id="cuil" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+        <input type="text" id="cuil" name="cuil" maxlength="11">
       </div>
     </div>
     <div class="grupo">
       <div class="campo">
         <label>LP</label>
-        <input type="text" id="lp">
+        <input type="text" id="lp" name="lp">
       </div>
       <div class="campo">
         <label>Grado/Jerarquía</label>
-        <input type="text" id="grado">
+        <input type="text" id="grado" name="grado">
       </div>
     </div>
     <div class="grupo">
       <div class="campo">
         <label>Subsecretaría / Superintendencia</label>
-        <input type="text" id="subsecretaria">
+        <input type="text" id="subsecretaria" name="subsecretaria">
       </div>
     </div>
     <div class="grupo">
       <div class="campo">
         <label>División / Departamento</label>
-        <input type="text" id="division">
+        <input type="text" id="division" name="division">
       </div>
       <div class="campo">
         <label>Dependencia</label>
-        <input type="text" id="dependencia">
+        <input type="text" id="dependencia" name="dependencia">
       </div>
     </div>
     <div class="grupo">
       <div class="campo">
         <label>Calle</label>
-        <input type="text" id="calle">
+        <input type="text" id="calle" name="calle">
       </div>
       <div class="campo">
         <label>Nro</label>
-        <input type="text" id="nro">
+        <input type="text" id="nro" name="nro">
       </div>
       <div class="campo">
         <label>Piso</label>
-        <input type="text" id="piso">
+        <input type="text" id="piso" name="piso">
       </div>
     </div>
     <div class="grupo">
       <div class="campo">
         <label>E-mail Personal Institucional</label>
-        <input type="email" id="email">
+        <input type="email" id="email" name="email">
       </div>
       <div class="campo">
         <label>Teléfono / Interno</label>
-        <input type="text" id="telefono">
+        <input type="text" id="telefono" name="telefono">
       </div>
     </div>
   </div>
@@ -213,76 +170,83 @@
     <div class="grupo">
       <div class="campo">
         <label>Apellido y Nombres</label>
-        <input type="text" id="resp_nombre">
+        <input type="text" id="resp_nombre" name="resp_nombre">
       </div>
       <div class="campo">
         <label>Cargo</label>
-        <input type="text" id="resp_cargo">
+        <input type="text" id="resp_cargo" name="resp_cargo">
       </div>
       <div class="campo">
         <label>LP</label>
-        <input type="text" id="resp_lp">
+        <input type="text" id="resp_lp" name="resp_lp">
       </div>
     </div>
     <div class="grupo">
       <div class="campo">
         <label>División / Departamento</label>
-        <input type="text" id="resp_division">
+        <input type="text" id="resp_division" name="resp_division">
       </div>
       <div class="campo">
         <label>E-mail Institucional</label>
-        <input type="email" id="resp_email">
+        <input type="email" id="resp_email" name="resp_email">
       </div>
       <div class="campo">
         <label>Teléfono / Interno</label>
-        <input type="text" id="resp_telefono">
+        <input type="text" id="resp_telefono" name="resp_telefono">
       </div>
     </div>
   </div>
 
-
-    <button onclick="descargarFormulario()">Convertir a PDF</button>
-</div>
+  <button type="button" onclick="descargarFormulario()">Generar PDF</button>
+</form>
 
 <script>
-
-      document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", () => {
+    // Fecha de hoy automática
     let hoy = new Date().toISOString().split("T")[0];
     document.getElementById("fecha").value = hoy;
   });
 
-  async function descargarFormulario() {
-    const { jsPDF } = window.jspdf;
+  function formatearFecha(fechaISO) {
+    const fecha = new Date(fechaISO);
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const anio = fecha.getFullYear();
+    return `${dia}/${mes}/${anio}`;
+  }
 
-    const formulario = document.querySelector('.formulario');
-    if (!formulario) {
-      alert("No se encontró el formulario.");
-      return;
-    }
+  function descargarFormulario() {
+    const inputFecha = document.getElementById("fecha");
+    const fechaOriginal = inputFecha.value;
+    const fechaFormateada = formatearFecha(fechaOriginal);
 
-    const doc = new jsPDF('p', 'mm', 'a4');
+    // Guardamos valor real
+    inputFecha.setAttribute("data-real", fechaOriginal);
+    inputFecha.type = "text"; // mostrar como texto
+    inputFecha.value = fechaFormateada;
 
-    // Aumentamos la escala para mejor calidad
-    const canvas = await html2canvas(formulario, {
-      scale: 2,
-      useCORS: true
+    // Opciones para html2pdf
+    const opciones = {
+      margin:       10,
+      filename:     'formulario_alta_usuario.pdf',
+      image:        { type: 'jpeg', quality: 1 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    const elemento = document.querySelector('.formulario');
+
+    html2pdf().set(opciones).from(elemento).save().then(() => {
+      // Restaurar el input como estaba
+      inputFecha.type = "date";
+      inputFecha.value = inputFecha.getAttribute("data-real");
     });
-
-    
-
-    const imgData = canvas.toDataURL('image/png');
-    const pdfWidth = doc.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    doc.save('formulario_alta_usuario.pdf');
   }
 </script>
 
-
-
 </body>
 </html>
+
 
 
 
