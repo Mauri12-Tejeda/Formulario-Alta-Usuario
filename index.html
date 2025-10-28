@@ -159,7 +159,7 @@
     <section id="hoja1" class="sheet">
       <div class="encabezado">
         <div class="enc-top">
-          <div class="enc-logo"><img src="./logo-para-VPN.png" alt=""></div>
+          <div class="enc-logo"><img src="logo-para-VPN.png" alt=""></div>
           <div class="enc-titulos">
             <div class="enc-titulo">Directorio Activo - Dominio</div>
             <div class="enc-sub">Ministerio de Seguridad - CABA</div>
@@ -304,6 +304,7 @@
         margin:0,
         image:{type:'jpeg',quality:0.98},
         html2canvas:{
+          allowTaint: true,
           backgroundColor:'#ffffff',scale:2,useCORS:true,
           onclone:doc=>{const tb=doc.querySelector('.toolbar');if(tb)tb.style.display='none';}
         },
@@ -335,3 +336,4 @@
   </script>
 </body>
 </html>
+
