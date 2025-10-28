@@ -1,387 +1,337 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Alta de Usuario - Ministerio de Seguridad</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solicitud de Alta de Usuario – Ministerio de Seguridad CABA</title>
+
+  <!-- Fuentes y librerías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
   <style>
-    body{font-family:Arial,sans-serif;background:#003366;padding:20px;margin:0}
-    .formulario{background:#f2f2f2;padding:20px;border-radius:10px;max-width:900px;margin:auto;box-shadow:0 0 10px rgba(0,0,0,.1);width:100%}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:#003366; /* Fondo oscuro */
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      padding:20px;
+    }
 
-    /* ===== Encabezado ===== */
+    /* === BOTONES SUPERIORES === */
+    .toolbar{
+      position:sticky;top:0;z-index:10;
+      display:flex;gap:10px;justify-content:center;
+      padding:12px 0;margin-bottom:20px;
+    }
+    .btn{
+      background:#007BFF;color:#fff;border:0;
+      border-radius:10px;padding:10px 16px;
+      font-weight:700;cursor:pointer;
+      box-shadow:0 4px 12px rgba(0,0,0,.3);
+      transition:background .2s ease,transform .15s ease;
+    }
+    .btn:hover{background:#0056b3;transform:translateY(-1px)}
+    .btn.secondary{background:#6c757d}
+    .btn.secondary:hover{background:#545b62}
+
+    /* === HOJA A4 === */
+    .sheet{
+      width:210mm;height:297mm;
+      padding:10mm;
+      background:#fff;
+      border-radius:10px;
+      border:2px solid #1a1a1a;
+      margin:auto;
+      box-shadow:0 4px 15px rgba(0,0,0,.2);
+      page-break-inside:avoid;
+    }
+
+    /* === ENCABEZADO === */
     .encabezado{
-      background:#fff;border:1px solid #cfcfcf;border-radius:6px;margin-bottom:16px;overflow:hidden
+      border:1.6px solid #cfcfcf;
+      border-radius:6px;
+      background:#ffffff;
+      margin-bottom:12px;
+      overflow:hidden;
     }
-    .enc-top{display:flex;align-items:center;gap:16px;padding:10px 14px}
-    .enc-logo{flex:0 0 180px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e0e0e0;padding-right:12px;min-height:56px;background:#fafafa}
-    .enc-logo img{max-height:42px;max-width:160px;object-fit:contain}
-    .enc-titulos{flex:1;text-align:center;padding:4px 8px}
-    .enc-titulo{font-size:24px;font-weight:700;color:#111;margin:0;line-height:1.2}
-    .enc-sub{margin:2px 0 0 0;font-size:14px;color:#1a1a1a;font-weight:600}
-    .enc-barra{background:#dddddd;color:#000;font-weight:700;padding:8px 14px;border-top:1px solid #cfcfcf;font-size:16px}
-    /* ====================== */
+    .enc-top{display:flex;align-items:center}
+    .enc-logo{
+      border-right:1px solid #ddd;
+      width:180px;display:flex;
+      align-items:center;justify-content:center;
+      padding:10px;
+      background:#fafafa;
+    }
+    .enc-logo img{max-height:50px;width:auto;object-fit:contain}
+    .enc-titulos{flex:1;text-align:center;padding:10px}
+    .enc-titulo{font-weight:700;font-size:22px;color:#000}
+    .enc-sub{margin-top:4px;font-weight:600;font-size:14px;color:#222}
+    .enc-barra{
+      background:#007BFF;color:#fff;
+      font-weight:700;padding:8px 14px;
+      font-size:15px;text-align:left;
+    }
 
-    h1,h2{text-align:center;margin-bottom:10px}
-    .seccion{margin-bottom:20px;border:1px solid #999;padding:15px;border-radius:5px}
-    .seccion h3{background:#007BFF;color:#fff;padding:5px 10px;margin:-15px -15px 15px -15px;font-size:16px}
-    .grupo{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+    /* === SECCIONES === */
+    .seccion{
+      border:1px solid #999;
+      border-radius:6px;
+      background:#f9fafb;
+      margin-bottom:14px;
+    }
+    .seccion h3{
+      background:#007BFF;
+      color:#fff;
+      padding:6px 10px;
+      margin:0;
+      font-size:15px;
+      font-weight:700;
+      border-radius:6px 6px 0 0;
+    }
+
+    .grupo{display:flex;flex-wrap:wrap;gap:10px;padding:10px}
     .campo{flex:1 1 200px;display:flex;flex-direction:column}
-    label{font-weight:bold;margin-bottom:5px}
-    input{padding:4px 8px;border:1px solid #ccc;border-radius:4px;height:32px;font-size:12px;box-sizing:border-box}
-    input:focus {
-    outline: none;
-    border-color: #ffcc00;
-    box-shadow: 0 0 8px rgba(255, 200, 0, 0.9);
-    background-color: #fff6d6; /* un poco más fuerte al escribir */
+    label{font-weight:600;margin-bottom:3px;font-size:13px;color:#111}
+    input,textarea{
+      width:100%;
+      border:none;
+      border-bottom:1px dashed #7e8790;
+      padding:5px 3px;
+      font:inherit;
+      outline:none;
+      background:transparent;
+      font-size:13px;
     }
-    button{padding:10px 20px;background:#007BFF;color:#fff;border:none;border-radius:5px;cursor:pointer;margin-top:10px}
-    button:hover{background:#0056b3}
+    input[type="date"]{
+      border:1px solid #cfd6df;
+      border-radius:4px;
+      padding:5px 6px;
+      font-size:13px;
+      background:#fff;
+    }
+    input:focus,textarea:focus{
+      outline:none;
+      border-color:#007BFF;
+      background:#eef5ff;
+    }
+    .invalid{outline:2px solid #c1121f !important; background:#fff2f2}
+    .req{color:#c1121f;font-weight:700}
 
-    /* Contenedor del clon (fuera de pantalla) */
-    #pdfContainer{
-      position:fixed; top:0; left:-99999px;
-      width:800px; background:#fff; padding:0; margin:0;
-      pointer-events:none; z-index:0;
+    /* === AVISO === */
+    .notice{
+      border:1px solid #000;
+      border-radius:4px;
+      background:#fff;
+      margin-top:8px;
+      padding:6px;
     }
-    #pdfContainer .formulario{box-shadow:none;margin:0;max-width:none;width:800px}
+    .notice-head{
+      background:#000;color:#fff;
+      text-align:center;font-weight:700;
+      padding:5px;margin:-1px -1px 5px -1px;
+      border-radius:4px 4px 0 0;
+      font-size:12.5px;
+    }
+    .notice-list{margin:0 0 0 18px;padding:0;font-size:12px}
+    .notice-list li{margin:2mm 0;line-height:1.35}
+    .notice a{color:#0a58ca;text-decoration:underline}
+
+    @media print{
+      @page{margin:0;}
+      body{background:#fff;}
+      .toolbar{display:none!important}
+      .sheet{box-shadow:none;border:2px solid #1a1a1a}
+    }
   </style>
 </head>
 <body>
 
-<form id="formAlta" class="formulario">
-
-  <!-- Encabezado con logo (poné el archivo en la misma carpeta con este nombre) -->
-  <div class="encabezado">
-    <div class="enc-top">
-      <div class="enc-logo">
-      </div>
-      <div class="enc-titulos">
-        <h1 class="enc-titulo">Directorio Activo - Dominio</h1>
-        <div class="enc-sub">Ministerio de Seguridad - CABA</div>
-      </div>
-    </div>
-    <div class="enc-barra">Formulario de solicitud Alta de Usuario de Windows</div>
+  <div class="toolbar">
+    <button id="btnPdf" class="btn">Convertir a PDF</button>
+    <button id="btnClear" class="btn secondary">Limpiar Formulario</button>
   </div>
 
-  <div class="seccion">
-    <h3>Solicitud</h3>
-    <div class="grupo">
-      <div class="campo">
-        <label for="fecha">Fecha de Solicitud</label>
-        <input type="date" id="fecha" name="fecha">
+  <div id="doc">
+    <!-- ===== HOJA 1 ===== -->
+    <section id="hoja1" class="sheet">
+      <div class="encabezado">
+        <div class="enc-top">
+          <div class="enc-logo"><img src="./logo-para-VPN.png" alt=""></div>
+          <div class="enc-titulos">
+            <div class="enc-titulo">Directorio Activo - Dominio</div>
+            <div class="enc-sub">Ministerio de Seguridad - CABA</div>
+          </div>
+        </div>
+        <div class="enc-barra">Formulario de solicitud Alta de Usuario de Windows</div>
       </div>
-    </div>
+
+      <div class="seccion">
+        <h3>Solicitud</h3>
+        <div class="grupo">
+          <div class="campo">
+            <label class="req">Fecha de Solicitud</label>
+            <input type="date" id="fecha" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="seccion">
+        <h3>Datos del Solicitante a Crear Usuario</h3>
+        <div class="grupo">
+          <div class="campo">
+            <label class="req">Apellido y Nombres</label>
+            <input id="nombre" required>
+          </div>
+          <div class="campo">
+            <label class="req">Nro de CUIL</label>
+            <input id="cuil" maxlength="11" required pattern="^\d{11}$" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,11)">
+          </div>
+        </div>
+
+        <div class="grupo">
+          <div class="campo"><label>LP</label><input></div>
+          <div class="campo"><label>Grado/Jerarquía</label><input></div>
+        </div>
+        <div class="grupo">
+          <div class="campo"><label>Subsecretaría / Superintendencia</label><input></div>
+        </div>
+        <div class="grupo">
+          <div class="campo"><label>División / Departamento</label><input></div>
+          <div class="campo"><label>Dependencia</label><input></div>
+        </div>
+        <div class="grupo">
+          <div class="campo"><label>Calle</label><input></div>
+          <div class="campo"><label>Nro</label><input pattern="\\d*"></div>
+          <div class="campo"><label>Piso</label><input pattern="\\d*"></div>
+        </div>
+        <div class="grupo">
+          <div class="campo">
+            <label class="req">E-mail Personal Institucional</label>
+            <input id="emailSolic" type="email" required pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\\.gob\\.ar|policiadelaciudad\\.gob\\.ar|seguridadciudad\\.gob\\.ar)$">
+          </div>
+          <div class="campo"><label>Teléfono / Interno</label><input pattern="\\d*"></div>
+        </div>
+      </div>
+
+      <div class="seccion">
+        <h3>Responsable de la Dependencia</h3>
+        <div class="grupo">
+          <div class="campo"><label>Apellido y Nombres</label><input></div>
+          <div class="campo"><label>Cargo</label><input></div>
+          <div class="campo"><label>LP</label><input></div>
+        </div>
+        <div class="grupo">
+          <div class="campo"><label>División / Departamento</label><input></div>
+          <div class="campo">
+            <label>E-mail Institucional</label>
+            <input id="emailResp" type="email" pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\\.gob\\.ar|policiadelaciudad\\.gob\\.ar|seguridadciudad\\.gob\\.ar)$">
+          </div>
+          <div class="campo"><label>Teléfono / Interno</label><input pattern="\\d*"></div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <div class="notice-head">AVISO IMPORTANTE</div>
+        <ol class="notice-list">
+          <li>Ante cualquier duda comuníquese al correo: <a href="mailto:dominio_mjys@buenosaires.gob.ar">dominio_mjys@buenosaires.gob.ar</a>.</li>
+          <li>No se recibirán formularios escritos a mano.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== HOJA 2 ===== -->
+    <section id="instructivo" class="sheet">
+      <div class="encabezado">
+        <div class="enc-top">
+          <div class="enc-logo"><img src="./logo-para-VPN.png" alt=""></div>
+          <div class="enc-titulos">
+            <div class="enc-titulo">Instrucciones</div>
+            <div class="enc-sub">Ministerio de Seguridad - CABA</div>
+          </div>
+        </div>
+        <div class="enc-barra">Instrucciones para completar el formulario</div>
+      </div>
+
+      <ol style="font-size:13px;line-height:1.5;">
+        <li>Completar la Fecha del requerimiento.</li>
+        <li>Datos del solicitante: Persona a dar de alta como Usuario de Dominio.</li>
+        <li>Indicar Número de CUIL y LP (si corresponde).</li>
+        <li>Indicar Dependencia y División/Departamento.</li>
+        <li>Completar correo institucional y teléfono de contacto.</li>
+        <li>Indicar datos del responsable (Apellido, Cargo, LP, e-mail, teléfono).</li>
+      </ol>
+
+      <p style="margin-top:12px;font-weight:600;color:#0033cc;">
+        IMPORTANTE: NO SE RECIBEN FORMULARIOS ESCRITOS A MANO.
+      </p>
+    </section>
   </div>
 
-  <div class="seccion">
-    <h3>Datos del Solicitante a Crear Usuario</h3>
-    <div class="grupo">
-      <div class="campo">
-        <label>Apellido y Nombres</label>
-        <input type="text" id="nombre" name="nombre">
-      </div>
-      <div class="campo">
-        <label>Nro de CUIL</label>
-        <input type="text" id="cuil" name="cuil" maxlength="11" oninput="validarNumeros(this)" pattern="\d*" title="Solo números">
-      </div>
-    </div>
-    <div class="grupo">
-      <div class="campo">
-        <label>LP</label>
-        <input type="text" id="lp" name="lp">
-      </div>
-      <div class="campo">
-        <label>Grado/Jerarquía</label>
-        <input type="text" id="grado" name="grado">
-      </div>
-    </div>
-    <div class="grupo">
-      <div class="campo">
-        <label>Subsecretaría / Superintendencia</label>
-        <input type="text" id="subsecretaria" name="subsecretaria">
-      </div>
-    </div>
-    <div class="grupo">
-      <div class="campo">
-        <label>División / Departamento</label>
-        <input type="text" id="division" name="division">
-      </div>
-      <div class="campo">
-        <label>Dependencia</label>
-        <input type="text" id="dependencia" name="dependencia">
-      </div>
-    </div>
-    <div class="grupo">
-      <div class="campo">
-        <label>Calle</label>
-        <input type="text" id="calle" name="calle">
-      </div>
-      <div class="campo">
-        <label>Nro</label>
-        <input type="text" id="nro" name="nro" oninput="validarNumeros(this)" pattern="\d*" title="Solo números">
-      </div>
-      <div class="campo">
-        <label>Piso</label>
-        <input type="text" id="piso" name="piso" oninput="validarNumeros(this)" pattern="\d*" title="Solo números">
-      </div>
-    </div>
-    <div class="grupo">
-      <div class="campo">
-        <label>E-mail Personal Institucional</label>
-        <input type="email" id="email" name="email">
-      </div>
-      <div class="campo">
-        <label>Teléfono / Interno</label>
-        <input type="text" id="telefono" name="telefono" oninput="validarNumeros(this)" pattern="\d*" title="Solo números">
-      </div>
-    </div>
-  </div>
-
-  <div class="seccion">
-    <h3>Responsable de la Dependencia</h3>
-    <div class="grupo">
-      <div class="campo">
-        <label>Apellido y Nombres</label>
-        <input type="text" id="resp_nombre" name="resp_nombre">
-      </div>
-      <div class="campo">
-        <label>Cargo</label>
-        <input type="text" id="resp_cargo" name="resp_cargo">
-      </div>
-      <div class="campo">
-        <label>LP</label>
-        <input type="text" id="resp_lp" name="resp_lp">
-      </div>
-    </div>
-    <div class="grupo">
-      <div class="campo">
-        <label>División / Departamento</label>
-        <input type="text" id="resp_division" name="resp_division">
-      </div>
-      <div class="campo">
-        <label>E-mail Institucional</label>
-        <input type="email" id="resp_email" name="resp_email">
-      </div>
-      <div class="campo">
-        <label>Teléfono / Interno</label>
-        <input type="text" id="resp_telefono" name="resp_telefono" oninput="validarNumeros(this)" pattern="\d*" title="Solo números">
-      </div>
-    </div>
-  </div>
-
-  <button type="button" id="btnPDF" onclick="descargarFormulario()">Generar PDF</button>
-</form>
-
-<!-- Segunda hoja: Instrucciones (oculta en pantalla, solo para PDF) -->
-<div id="instrucciones" style="display:none; background:#fff; padding:30px; max-width:800px; margin:auto; font-size:13px; line-height:1.5;">
-  <h2 style="text-align:center; margin-bottom:20px;">Instrucciones para completar el formulario</h2>
-  <ol>
-    <li>Completar Fecha del requerimiento.</li>
-    <li>Datos del solicitante.<br>
-      Completar con los datos de la Persona a dar de alta como Usuario de Dominio. 
-      Ante cualquier consulta comunicarse al correo electrónico: 
-      <b>dominio_mjys@buenosaires.gob.ar</b>
-    </li>
-  </ol>
-  <p>A. Indicar Número de CUIL.<br>
-  B. Indicar LP del Usuario (Personal contratado no completar).<br>
-  C. Indicar Dependencia en la cual realiza sus actividades.<br>
-  D. Indicar División/Departamento a la cual pertenece.<br>
-  E. Indicar Ubicación de la Dependencia.<br>
-  F. Indicar Correo electrónico del solicitante (@buenosaires.gob.ar, @policiadelaciudad.gob.ar).<br>
-  En caso de no poseerlo, realizar la solicitud correspondiente (para más información dirigirse a la intranet).<br>
-  G. Indicar teléfono de la División/Departamento donde ejerce sus funciones.</p>
-
-  <p>3. Indicar Sistemas, Servidores o Conexión VPN a los cuales va acceder con sus credenciales.</p>
-  <p>4. Datos del Responsable:<br>
-  A. Indicar el Apellido/Nombre del responsable de la División/Departamento.<br>
-  B. Indicar Cargo/LP del responsable de la División/Departamento.<br>
-  C. Indicar email/teléfono del responsable de la División/Departamento.</p>
-
-  <p style="color:#0033cc; font-weight:bold; margin-top:20px;">
-    IMPORTANTE: NO SE RECIBEN FORMULARIOS ESCRITOS A MANO.
-  </p>
-</div>
-
-<!-- contenedor fuera de pantalla para el clon -->
-<div id="pdfContainer"></div>
-<input type="date" id="fecha">
-<script>
-  const d = new Date();
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth()+1).padStart(2,'0');
-  const dd = String(d.getDate()).padStart(2,'0');
-  document.getElementById('fecha').value = `${yyyy}-${mm}-${dd}`; // SIEMPRE ISO
-
-  function validarNumeros(i){ i.value = i.value.replace(/[^0-9]/g,''); }
-
-  function formatearFecha(iso){
-    const f = new Date(iso + 'T00:00:00');
-    const d = String(f.getDate()).padStart(2,'0');
-    const m = String(f.getMonth()+1).padStart(2,'0');
-    const y = f.getFullYear();
-    return `${d}/${m}/${y}`;
-  }
-
-  
-
-async function descargarFormulario(){
-  try{
-    const jspdfMod = window.jspdf;
-    if(!jspdfMod || !jspdfMod.jsPDF){
-      alert('No se pudo cargar jsPDF.');
-      return;
+  <script>
+    function setTodayIfEmpty(){
+      const d=new Date();const pad=n=>String(n).padStart(2,'0');
+      const iso=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+      const f=document.getElementById('fecha');if(f&&!f.value)f.value=iso;
     }
-    const { jsPDF } = jspdfMod;
+    document.addEventListener('DOMContentLoaded',setTodayIfEmpty);
 
-    const form = document.querySelector('.formulario');
-    const pdfContainer = document.getElementById('pdfContainer');
-
-    // --- PRIMERA PARTE: Formulario ---
-    const clon = form.cloneNode(true);
-
-    // Quitar botón
-    const btn = clon.querySelector('#btnPDF');
-    if (btn) btn.remove();
-
-    // Fecha legible
-    const f = clon.querySelector('#fecha');
-    if (f){
-      f.type = 'text';
-      if (f.value){
-        const d = new Date(f.value + 'T00:00:00');
-        f.value = String(d.getDate()).padStart(2,'0') + '/' +
-                  String(d.getMonth()+1).padStart(2,'0') + '/' +
-                  d.getFullYear();
-      }
+    const allowedDomains=["buenosaires.gob.ar","policiadelaciudad.gob.ar","seguridadciudad.gob.ar"];
+    function isAllowedEmail(email){
+      const at=email.indexOf("@");if(at===-1)return false;
+      return allowedDomains.includes(email.slice(at+1).toLowerCase().trim());
     }
 
-    // Forzar ancho estable y asegurar visibilidad para layout
-    clon.style.maxWidth = 'none';
-    clon.style.width = '800px';
-    clon.style.visibility = 'visible';
+    function validar(){
+      let ok=true;
+      const reqs=['nombre','cuil','emailSolic'];
+      reqs.forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el)return;el.classList.remove('invalid');
+        if(!el.value.trim()||!el.checkValidity()){el.classList.add('invalid');ok=false;}
+      });
+      ['emailSolic','emailResp'].forEach(id=>{
+        const e=document.getElementById(id);
+        if(e&&e.value&&!isAllowedEmail(e.value)){e.classList.add('invalid');ok=false;}
+      });
+      return ok;
+    }
 
-    pdfContainer.innerHTML = '';
-    pdfContainer.appendChild(clon);
+    async function nodeToDataURL(el){
+      const worker=html2pdf().set({
+        margin:0,
+        image:{type:'jpeg',quality:0.98},
+        html2canvas:{
+          backgroundColor:'#ffffff',scale:2,useCORS:true,
+          onclone:doc=>{const tb=doc.querySelector('.toolbar');if(tb)tb.style.display='none';}
+        },
+        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+      }).from(el).toCanvas();
+      const canvas=await worker.get('canvas');
+      return canvas.toDataURL('image/jpeg',0.98);
+    }
 
-    const canvas = await html2canvas(clon, {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
-      logging: false
+    document.getElementById('btnPdf').addEventListener('click',async()=>{
+      if(!validar()){alert('Complete los campos obligatorios o corrija los e-mails.');return;}
+      const hoja1=document.getElementById('hoja1');
+      const hoja2=document.getElementById('instructivo');
+      const cuil=(document.getElementById('cuil')?.value||'SIN-CUIL').replace(/\D/g,'').slice(0,11)||'SIN-CUIL';
+      const [img1,img2]=await Promise.all([nodeToDataURL(hoja1),nodeToDataURL(hoja2)]);
+      const pdf=new jspdf.jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+      pdf.addImage(img1,'JPEG',0,0,210,297);
+      pdf.addPage();
+      pdf.addImage(img2,'JPEG',0,0,210,297);
+      pdf.save(`Alta Usuario - ${cuil}.pdf`);
     });
 
-    if (!canvas || !canvas.width || !canvas.height){
-      throw new Error('Canvas inválido (ancho/alto 0) para el formulario.');
-    }
-
-    const doc = new jsPDF('p','mm','a4');
-    const margin = 10; // mm
-    const pageWidth  = Number(doc.internal.pageSize.getWidth());
-    const pageHeight = Number(doc.internal.pageSize.getHeight());
-    const pdfWidth   = Number((pageWidth - margin*2).toFixed(3));
-    const pdfHeight  = Number((pageHeight - margin*2).toFixed(3));
-
-    const scaleW = pdfWidth / canvas.width;             // mm/px
-    const imgHeight = Number((canvas.height * scaleW).toFixed(3));
-
-    if (!isFinite(pdfWidth) || !isFinite(imgHeight) || pdfWidth <= 0 || imgHeight <= 0){
-      throw new Error('Dimensiones inválidas para addImage (formulario).');
-    }
-
-    let heightLeft = imgHeight;
-    let yPos = margin;
-
-    const imgData = canvas.toDataURL('image/jpeg', 0.98);
-    doc.addImage(imgData, 'JPEG', margin, yPos, pdfWidth, imgHeight);
-    heightLeft -= pdfHeight;
-
-    while (heightLeft > 0){
-      doc.addPage();
-      yPos = margin - (imgHeight - heightLeft);
-      doc.addImage(imgData, 'JPEG', margin, yPos, pdfWidth, imgHeight);
-      heightLeft -= pdfHeight;
-    }
-
-    // --- SEGUNDA PARTE: Instrucciones --- (REEMPLAZO)
-const instrucciones = document.getElementById('instrucciones');
-if (instrucciones) {
-  // Clon y forzado de visibilidad (el original está display:none)
-  const instClone = instrucciones.cloneNode(true);
-  instClone.style.display = 'block';       // <— clave
-  instClone.style.visibility = 'visible';  // <— clave
-  instClone.style.width = '800px';
-  instClone.style.maxWidth = 'none';
-  instClone.style.background = '#ffffff';
-
-  // Contenedor fuera de pantalla para render
-  const contenedorTmp = document.createElement('div');
-  contenedorTmp.style.position = 'fixed';
-  contenedorTmp.style.left = '-99999px';
-  contenedorTmp.style.top = '0';
-  contenedorTmp.style.width = '800px';
-  contenedorTmp.style.background = '#ffffff';
-  contenedorTmp.style.visibility = 'visible';
-  contenedorTmp.appendChild(instClone);
-  document.body.appendChild(contenedorTmp);
-
-  // Capturar
-  const canvas2 = await html2canvas(contenedorTmp, {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: '#ffffff',
-    logging: false
-  });
-
-  if (!canvas2 || !canvas2.width || !canvas2.height) {
-    document.body.removeChild(contenedorTmp);
-    throw new Error('Canvas inválido (instrucciones).');
-  }
-
-  const imgData2 = canvas2.toDataURL('image/jpeg', 0.98);
-  const scaleW2 = pdfWidth / canvas2.width;
-  const imgHeight2 = Number((canvas2.height * scaleW2).toFixed(3));
-
-  let rest2 = imgHeight2;
-  let y2 = margin;
-
-  doc.addPage();
-  doc.addImage(imgData2, 'JPEG', margin, y2, pdfWidth, imgHeight2);
-  rest2 -= pdfHeight;
-
-  while (rest2 > 0) {
-    doc.addPage();
-    y2 = margin - (imgHeight2 - rest2);
-    doc.addImage(imgData2, 'JPEG', margin, y2, pdfWidth, imgHeight2);
-    rest2 -= pdfHeight;
-  }
-
-  document.body.removeChild(contenedorTmp);
-}
-
-
-    pdfContainer.innerHTML = '';
-    doc.save('formulario_alta_usuario.pdf');
-
-  }catch(err){
-    console.error('Error al generar PDF:', err);
-    alert('Error al generar PDF: ' + err.message);
-  }
-}
-
-
-
-
-</script>
+    document.getElementById('btnClear').addEventListener('click',()=>{
+      document.querySelectorAll('#hoja1 input,#hoja1 textarea').forEach(el=>{
+        el.value='';el.classList.remove('invalid');
+      });
+      setTodayIfEmpty();
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
