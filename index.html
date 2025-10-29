@@ -180,7 +180,7 @@
           </div>
           <div class="campo">
             <label class="req">Nro de CUIL</label>
-            <input id="cuil" maxlength="11" required pattern="^\d{11}$" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,11)">
+              <input id="inpCuil" class="input-line" type="text" inputmode="numeric" maxlength="11" required oninput="this.value=this.value.replace(/\D/g,'').slice(0,11)" pattern="^\d{11}$" title="11 dígitos sin guiones">
           </div>
         </div>
         <div class="grupo">
@@ -193,7 +193,9 @@
         </div>
         <div class="grupo">
           <div class="campo"><label class="req">E-mail Institucional</label>
-            <input id="emailSolic" type="email" required pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\\.gob\\.ar|policiadelaciudad\\.gob\\.ar|seguridadciudad\\.gob\\.ar)$">
+                      <input id="emailResp" class="input-line" type="email"
+                     pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\.gob\.ar|policiadelaciudad\.gob\.ar|seguridadciudad\.gob\.ar)$"
+                     title="Debe usar @buenosaires.gob.ar, @policiadelaciudad.gob.ar o @seguridadciudad.gob.ar">  
           </div>
           <div class="campo"><label>Teléfono / Interno</label><input></div>
         </div>
@@ -369,3 +371,4 @@
   </script>
 </body>
 </html>
+
