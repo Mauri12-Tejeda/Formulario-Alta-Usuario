@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Solicitud de Alta de Usuario – Ministerio de Seguridad CABA</title>
 
-  <!-- Fuentes y librerías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Franklin:wght@500;700&display=swap" rel="stylesheet">
@@ -15,12 +14,11 @@
     *{box-sizing:border-box}
     body{
       margin:0;
-      background:#003366; /* Fondo oscuro */
+      background:#003366;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
       padding:20px;
     }
 
-    /* === BOTONES SUPERIORES === */
     .toolbar{
       position:sticky;top:0;z-index:10;
       display:flex;gap:10px;justify-content:center;
@@ -37,7 +35,6 @@
     .btn.secondary{background:#6c757d}
     .btn.secondary:hover{background:#545b62}
 
-    /* === HOJA A4 === */
     .sheet{
       width:210mm;height:297mm;
       padding:10mm;
@@ -49,7 +46,6 @@
       page-break-inside:avoid;
     }
 
-    /* === ENCABEZADO === */
     .encabezado{
       border:1.6px solid #cfcfcf;
       border-radius:6px;
@@ -75,7 +71,6 @@
       font-size:15px;text-align:left;
     }
 
-    /* === SECCIONES === */
     .seccion{
       border:1px solid #999;
       border-radius:6px;
@@ -120,7 +115,6 @@
     .invalid{outline:2px solid #c1121f !important; background:#fff2f2}
     .req{color:#c1121f;font-weight:700}
 
-    /* === AVISO === */
     .notice{
       border:1px solid #000;
       border-radius:4px;
@@ -155,17 +149,16 @@
   </div>
 
   <div id="doc">
-    <!-- ===== HOJA 1 ===== -->
     <section id="hoja1" class="sheet">
       <div class="encabezado">
         <div class="enc-top">
           <div class="enc-logo"><img src="logo-para-VPN.png" alt=""></div>
           <div class="enc-titulos">
-            <div class="enc-titulo">Directorio Activo - Dominio</div>
+            <div class="enc-titulo">Alta Usuario - Dominio</div>
             <div class="enc-sub">Ministerio de Seguridad - CABA</div>
           </div>
         </div>
-        <div class="enc-barra">Formulario de solicitud Alta de Usuario de Windows</div>
+        <div class="enc-barra">Formulario de solicitud Alta de Usuario</div>
       </div>
 
       <div class="seccion">
@@ -179,7 +172,7 @@
       </div>
 
       <div class="seccion">
-        <h3>Datos del Solicitante a Crear Usuario</h3>
+        <h3>Datos del Solicitante</h3>
         <div class="grupo">
           <div class="campo">
             <label class="req">Apellido y Nombres</label>
@@ -190,29 +183,19 @@
             <input id="cuil" maxlength="11" required pattern="^\d{11}$" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,11)">
           </div>
         </div>
-
         <div class="grupo">
           <div class="campo"><label>LP</label><input></div>
           <div class="campo"><label>Grado/Jerarquía</label><input></div>
-        </div>
-        <div class="grupo">
-          <div class="campo"><label>Subsecretaría / Superintendencia</label><input></div>
         </div>
         <div class="grupo">
           <div class="campo"><label>División / Departamento</label><input></div>
           <div class="campo"><label>Dependencia</label><input></div>
         </div>
         <div class="grupo">
-          <div class="campo"><label>Calle</label><input></div>
-          <div class="campo"><label>Nro</label><input pattern="\\d*"></div>
-          <div class="campo"><label>Piso</label><input pattern="\\d*"></div>
-        </div>
-        <div class="grupo">
-          <div class="campo">
-            <label class="req">E-mail Personal Institucional</label>
+          <div class="campo"><label class="req">E-mail Institucional</label>
             <input id="emailSolic" type="email" required pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\\.gob\\.ar|policiadelaciudad\\.gob\\.ar|seguridadciudad\\.gob\\.ar)$">
           </div>
-          <div class="campo"><label>Teléfono / Interno</label><input pattern="\\d*"></div>
+          <div class="campo"><label>Teléfono / Interno</label><input></div>
         </div>
       </div>
 
@@ -224,12 +207,11 @@
           <div class="campo"><label>LP</label><input></div>
         </div>
         <div class="grupo">
-          <div class="campo"><label>División / Departamento</label><input></div>
           <div class="campo">
             <label>E-mail Institucional</label>
             <input id="emailResp" type="email" pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\\.gob\\.ar|policiadelaciudad\\.gob\\.ar|seguridadciudad\\.gob\\.ar)$">
           </div>
-          <div class="campo"><label>Teléfono / Interno</label><input pattern="\\d*"></div>
+          <div class="campo"><label>Teléfono / Interno</label><input></div>
         </div>
       </div>
 
@@ -243,36 +225,85 @@
     </section>
 
     <!-- ===== HOJA 2 ===== -->
-    <section id="instructivo" class="sheet">
-      <div class="encabezado">
-        <div class="enc-top">
-          <div class="enc-logo"><img src="./logo-para-VPN.png" alt=""></div>
-          <div class="enc-titulos">
-            <div class="enc-titulo">Instrucciones</div>
-            <div class="enc-sub">Ministerio de Seguridad - CABA</div>
-          </div>
-        </div>
-        <div class="enc-barra">Instrucciones para completar el formulario</div>
+<section id="instructivo" class="sheet">
+  <div class="encabezado">
+    <div class="enc-top">
+      <div class="enc-logo"><img src="logo-para-VPN.png" alt=""></div>
+      <div class="enc-titulos">
+        <div class="enc-titulo">Instrucciones</div>
+        <div class="enc-sub">Ministerio de Seguridad - CABA</div>
       </div>
+    </div>
+    <div class="enc-barra">INSTRUCCIONES PARA LA CONFECCIÓN DEL PRESENTE FORMULARIO</div>
+  </div>
 
-      <ol style="font-size:13px;line-height:1.5;">
-        <li>Completar la Fecha del requerimiento.</li>
-        <li>Datos del solicitante: Persona a dar de alta como Usuario de Dominio.</li>
-        <li>Indicar Número de CUIL y LP (si corresponde).</li>
-        <li>Indicar Dependencia y División/Departamento.</li>
-        <li>Completar correo institucional y teléfono de contacto.</li>
-        <li>Indicar datos del responsable (Apellido, Cargo, LP, e-mail, teléfono).</li>
-      </ol>
+  <div style="font-size:13px;line-height:1.5">
+    <p><strong>IMPORTANTE: NO SE RECIBEN FORMULARIOS ESCRITOS A MANO.</strong></p>
 
-      <p style="margin-top:12px;font-weight:600;color:#0033cc;">
-        IMPORTANTE: NO SE RECIBEN FORMULARIOS ESCRITOS A MANO.
-      </p>
-    </section>
+    <p>Completar el formulario de acuerdo con lo siguiente.</p>
+
+    <ol style="margin:0 0 0 18px;padding:0">
+      <li>Completar Fecha del requerimiento.</li>
+
+      <li>Datos del solicitante.<br>
+        Compeletar con los datos de la Persona a dar de alta como Usuario de Dominio.
+        Ante cualquier consulta comunicarse al correo electronico:
+        <strong>dominio_mjys@buenosaires.gob.ar</strong>
+        <ol type="A" style="margin:6px 0 0 18px;padding:0">
+          <li>Indicar Numero de CUIL.</li>
+          <li>Indicar LP del Usuario (Personal contratado no completar).</li>
+          <li>Indicar Dependencia en la cual realiza sus actividades.</li>
+          <li>Indicar División/Departamento a la cual pertenece.</li>
+          <li>Indicar Ubicación de la Dependencia.</li>
+          <li>Indicar Correo electrónico del solicitante (@buenosaires.gob.ar, @policiadelaciudad.gob.ar).<br>
+            En caso de no poseerlo, realizar la solicitud correspondiente (para mas informacion dirijase a la intranet).</li>
+          <li>Indicar teléfono de la División/Departamento donde ejerce sus funciones.</li>
+        </ol>
+      </li>
+
+      <li>Indicar Sistemas, Servidores o Conexion VPN a los cuales va acceder con sus credenciales.</li>
+
+      <li>Datos del Responsable
+        <ol type="A" style="margin:6px 0 0 18px;padding:0">
+          <li>Indicar el Apellido/Nombre del responsable de la División/Departamento.</li>
+          <li>Indicar Cargo/LP del responsable de la División/departamento.</li>
+          <li>Indicar email/teléfono del responsable de la División/Departamento.</li>
+        </ol>
+      </li>
+    </ol>
+
+    <p style="margin-top:10px"><strong>IMPORTANTE: NO SE RECIBEN FORMULARIOS ESCRITOS A MANO.</strong></p>
+  </div>
+</section>
+
   </div>
 
   <script>
+    function loadScript(src){
+      return new Promise((resolve, reject)=>{
+        const s=document.createElement('script');
+        s.src=src; s.async=true;
+        s.onload=resolve; s.onerror=reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    async function ensureJsPDF(){
+      let JsPDFCtor=
+        (window.jspdf && (window.jspdf.jsPDF || window.jspdf.default)) ||
+        window.jsPDF || window.JSPDF;
+      if(!JsPDFCtor){
+        await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+        JsPDFCtor=
+          (window.jspdf && (window.jspdf.jsPDF || window.jspdf.default)) ||
+          window.jsPDF || window.JSPDF;
+      }
+      if(!JsPDFCtor) throw new Error('jsPDF no disponible');
+      return JsPDFCtor;
+    }
+
     function setTodayIfEmpty(){
-      const d=new Date();const pad=n=>String(n).padStart(2,'0');
+      const d=new Date(), pad=n=>String(n).padStart(2,'0');
       const iso=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
       const f=document.getElementById('fecha');if(f&&!f.value)f.value=iso;
     }
@@ -304,8 +335,7 @@
         margin:0,
         image:{type:'jpeg',quality:0.98},
         html2canvas:{
-          allowTaint: true,
-          backgroundColor:'#ffffff',scale:2,useCORS:true,
+          backgroundColor:'#ffffff',scale:2,useCORS:true,allowTaint:true,
           onclone:doc=>{const tb=doc.querySelector('.toolbar');if(tb)tb.style.display='none';}
         },
         jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
@@ -319,12 +349,15 @@
       const hoja1=document.getElementById('hoja1');
       const hoja2=document.getElementById('instructivo');
       const cuil=(document.getElementById('cuil')?.value||'SIN-CUIL').replace(/\D/g,'').slice(0,11)||'SIN-CUIL';
-      const [img1,img2]=await Promise.all([nodeToDataURL(hoja1),nodeToDataURL(hoja2)]);
-      const pdf=new jspdf.jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
-      pdf.addImage(img1,'JPEG',0,0,210,297);
-      pdf.addPage();
-      pdf.addImage(img2,'JPEG',0,0,210,297);
-      pdf.save(`Alta Usuario - ${cuil}.pdf`);
+      try{
+        const [img1,img2]=await Promise.all([nodeToDataURL(hoja1),nodeToDataURL(hoja2)]);
+        const jsPDFCtor=await ensureJsPDF();
+        const pdf=new jsPDFCtor({unit:'mm',format:'a4',orientation:'portrait'});
+        pdf.addImage(img1,'JPEG',0,0,210,297);
+        pdf.addPage();
+        pdf.addImage(img2,'JPEG',0,0,210,297);
+        pdf.save(`Alta Usuario - ${cuil}.pdf`);
+      }catch(e){console.error(e);alert('No se pudo generar el PDF. Revisá la consola.');}
     });
 
     document.getElementById('btnClear').addEventListener('click',()=>{
@@ -336,4 +369,3 @@
   </script>
 </body>
 </html>
-
