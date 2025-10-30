@@ -12,123 +12,38 @@
 
   <style>
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:#003366;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      padding:20px;
-    }
+    body{margin:0;background:#003366;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;padding:20px}
 
-    .toolbar{
-      position:sticky;top:0;z-index:10;
-      display:flex;gap:10px;justify-content:center;
-      padding:12px 0;margin-bottom:20px;
-    }
-    .btn{
-      background:#007BFF;color:#fff;border:0;
-      border-radius:10px;padding:10px 16px;
-      font-weight:700;cursor:pointer;
-      box-shadow:0 4px 12px rgba(0,0,0,.3);
-      transition:background .2s ease,transform .15s ease;
-    }
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;gap:10px;justify-content:center;padding:12px 0;margin-bottom:20px}
+    .btn{background:#007BFF;color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.3);transition:background .2s,transform .15s}
     .btn:hover{background:#0056b3;transform:translateY(-1px)}
-    .btn.secondary{background:#6c757d}
-    .btn.secondary:hover{background:#545b62}
+    .btn.secondary{background:#6c757d}.btn.secondary:hover{background:#545b62}
 
-    .sheet{
-      width:210mm;height:297mm;
-      padding:10mm;
-      background:#fff;
-      border-radius:10px;
-      border:2px solid #1a1a1a;
-      margin:auto;
-      box-shadow:0 4px 15px rgba(0,0,0,.2);
-      page-break-inside:avoid;
-    }
-
-    .encabezado{
-      border:1.6px solid #cfcfcf;
-      border-radius:6px;
-      background:#ffffff;
-      margin-bottom:12px;
-      overflow:hidden;
-    }
+    .sheet{width:210mm;height:297mm;padding:10mm;background:#fff;border-radius:10px;border:2px solid #1a1a1a;margin:auto;box-shadow:0 4px 15px rgba(0,0,0,.2);page-break-inside:avoid}
+    .encabezado{border:1.6px solid #cfcfcf;border-radius:6px;background:#fff;margin-bottom:12px;overflow:hidden}
     .enc-top{display:flex;align-items:center}
-    .enc-logo{
-      border-right:1px solid #ddd;
-      width:180px;display:flex;
-      align-items:center;justify-content:center;
-      padding:10px;
-      background:#fafafa;
-    }
+    .enc-logo{border-right:1px solid #ddd;width:180px;display:flex;align-items:center;justify-content:center;padding:10px;background:#fafafa}
     .enc-logo img{max-height:50px;width:auto;object-fit:contain}
     .enc-titulos{flex:1;text-align:center;padding:10px}
     .enc-titulo{font-weight:700;font-size:22px;color:#000}
     .enc-sub{margin-top:4px;font-weight:600;font-size:14px;color:#222}
-    .enc-barra{
-      background:#007BFF;color:#fff;
-      font-weight:700;padding:8px 14px;
-      font-size:15px;text-align:left;
-    }
+    .enc-barra{background:#007BFF;color:#fff;font-weight:700;padding:8px 14px;font-size:15px;text-align:left}
 
-    .seccion{
-      border:1px solid #999;
-      border-radius:6px;
-      background:#f9fafb;
-      margin-bottom:14px;
-    }
-    .seccion h3{
-      background:#007BFF;
-      color:#fff;
-      padding:6px 10px;
-      margin:0;
-      font-size:15px;
-      font-weight:700;
-      border-radius:6px 6px 0 0;
-    }
+    .seccion{border:1px solid #999;border-radius:6px;background:#f9fafb;margin-bottom:14px}
+    .seccion h3{background:#007BFF;color:#fff;padding:6px 10px;margin:0;font-size:15px;font-weight:700;border-radius:6px 6px 0 0}
 
     .grupo{display:flex;flex-wrap:wrap;gap:10px;padding:10px}
     .campo{flex:1 1 200px;display:flex;flex-direction:column}
     label{font-weight:600;margin-bottom:3px;font-size:13px;color:#111}
-    input,textarea{
-      width:100%;
-      border:none;
-      border-bottom:1px dashed #7e8790;
-      padding:5px 3px;
-      font:inherit;
-      outline:none;
-      background:transparent;
-      font-size:13px;
-    }
-    input[type="date"]{
-      border:1px solid #cfd6df;
-      border-radius:4px;
-      padding:5px 6px;
-      font-size:13px;
-      background:#fff;
-    }
-    input:focus,textarea:focus{
-      outline:none;
-      border-color:#007BFF;
-      background:#eef5ff;
-    }
-    .invalid{outline:2px solid #c1121f !important; background:#fff2f2}
+    input,textarea{width:100%;border:none;border-bottom:1px dashed #7e8790;padding:5px 3px;font:inherit;outline:none;background:transparent;font-size:13px}
+    input[type="date"]{border:1px solid #cfd6df;border-radius:4px;padding:5px 6px;font-size:13px;background:#fff}
+    input:disabled{color:#111;background:#eef5ff!important;border-color:#cfd6df!important;cursor:not-allowed}
+    input:focus,textarea:focus{outline:none;border-color:#007BFF;background:#eef5ff}
+    .invalid{outline:2px solid #c1121f !important;background:#fff2f2}
     .req{color:#c1121f;font-weight:700}
 
-    .notice{
-      border:1px solid #000;
-      border-radius:4px;
-      background:#fff;
-      margin-top:8px;
-      padding:6px;
-    }
-    .notice-head{
-      background:#000;color:#fff;
-      text-align:center;font-weight:700;
-      padding:5px;margin:-1px -1px 5px -1px;
-      border-radius:4px 4px 0 0;
-      font-size:12.5px;
-    }
+    .notice{border:1px solid #000;border-radius:4px;background:#fff;margin-top:8px;padding:6px}
+    .notice-head{background:#000;color:#fff;text-align:center;font-weight:700;padding:5px;margin:-1px -1px 5px -1px;border-radius:4px 4px 0 0;font-size:12.5px}
     .notice-list{margin:0 0 0 18px;padding:0;font-size:12px}
     .notice-list li{margin:2mm 0;line-height:1.35}
     .notice a{color:#0a58ca;text-decoration:underline}
@@ -166,7 +81,8 @@
         <div class="grupo">
           <div class="campo">
             <label class="req">Fecha de Solicitud</label>
-            <input type="date" id="fecha" required>
+            <!-- FECHA BLOQUEADA -->
+            <input type="date" id="fecha" disabled>
           </div>
         </div>
       </div>
@@ -176,44 +92,58 @@
         <div class="grupo">
           <div class="campo">
             <label class="req">Apellido y Nombres</label>
-            <input id="nombre" required>
+            <input id="nombre" required
+              pattern="^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+(?:[\s'][A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+)+$"
+              title="Ingrese nombre y apellido (solo letras y espacios)">
           </div>
           <div class="campo">
             <label class="req">Nro de CUIL</label>
-              <input id="inpCuil" class="input-line" type="text" inputmode="numeric" maxlength="11" required oninput="this.value=this.value.replace(/\D/g,'').slice(0,11)" pattern="^\d{11}$" title="11 dígitos sin guiones">
+            <input id="inpCuil" class="input-line" type="text" inputmode="numeric" maxlength="11" required
+              pattern="^\d{11}$" title="11 dígitos sin guiones">
           </div>
         </div>
         <div class="grupo">
-          <div class="campo"><label>LP</label><input></div>
-          <div class="campo"><label>Grado/Jerarquía</label><input></div>
+          <div class="campo"><label>LP</label><input id="lpSolic"></div>
+          <div class="campo"><label>Grado/Jerarquía</label><input id="gradoSolic"></div>
         </div>
         <div class="grupo">
-          <div class="campo"><label>División / Departamento</label><input></div>
-          <div class="campo"><label>Dependencia</label><input></div>
+          <div class="campo"><label>División / Departamento</label><input id="divSolic"></div>
+          <div class="campo"><label>Dependencia</label><input id="depSolic"></div>
         </div>
         <div class="grupo">
-          <div class="campo"><label class="req">E-mail Institucional</label>
-                      <input id="emailResp" class="input-line" type="email"
-                     pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\.gob\.ar|policiadelaciudad\.gob\.ar|seguridadciudad\.gob\.ar)$"
-                     title="Debe usar @buenosaires.gob.ar, @policiadelaciudad.gob.ar o @seguridadciudad.gob.ar">  
+          <div class="campo">
+            <label class="req">E-mail Institucional</label>
+            <input id="emailSolic" class="input-line" type="email" required
+              pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\.gob\.ar|policiadelaciudad\.gob\.ar|seguridadciudad\.gob\.ar)$"
+              title="Debe usar @buenosaires.gob.ar, @policiadelaciudad.gob.ar o @seguridadciudad.gob.ar">
           </div>
-          <div class="campo"><label>Teléfono / Interno</label><input></div>
+          <div class="campo">
+            <label>Teléfono / Interno</label>
+            <input id="telSolic" type="text" inputmode="numeric" maxlength="10"
+              pattern="^\d{10}$" title="10 dígitos (sin espacios ni guiones)">
+          </div>
         </div>
       </div>
 
       <div class="seccion">
         <h3>Responsable de la Dependencia</h3>
         <div class="grupo">
-          <div class="campo"><label>Apellido y Nombres</label><input></div>
-          <div class="campo"><label>Cargo</label><input></div>
-          <div class="campo"><label>LP</label><input></div>
+          <div class="campo"><label class="req">Apellido y Nombres</label><input id="respNombre" required></div>
+          <div class="campo"><label class="req">Cargo</label><input id="respCargo" required></div>
+          <div class="campo"><label class="req">LP</label><input id="respLP" required></div>
         </div>
         <div class="grupo">
           <div class="campo">
-            <label>E-mail Institucional</label>
-            <input id="emailResp" type="email" pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\\.gob\\.ar|policiadelaciudad\\.gob\\.ar|seguridadciudad\\.gob\\.ar)$">
+            <label class="req">E-mail Institucional</label>
+            <input id="emailResp" type="email" required
+              pattern="^[a-zA-Z0-9._%+-]+@(buenosaires\.gob\.ar|policiadelaciudad\.gob\.ar|seguridadciudad\.gob\.ar)$"
+              title="Debe usar @buenosaires.gob.ar, @policiadelaciudad.gob.ar o @seguridadciudad.gob.ar">
           </div>
-          <div class="campo"><label>Teléfono / Interno</label><input></div>
+          <div class="campo">
+            <label class="req">Teléfono / Interno</label>
+            <input id="telResp" type="text" inputmode="numeric" maxlength="10" required
+              pattern="^\d{10}$" title="10 dígitos (sin espacios ni guiones)">
+          </div>
         </div>
       </div>
 
@@ -227,7 +157,7 @@
     </section>
 
     <!-- ===== HOJA 2 ===== -->
-<section id="instructivo" class="sheet">
+    <section id="instructivo" class="sheet">
   <div class="encabezado">
     <div class="enc-top">
       <div class="enc-logo"><img src="logo-para-VPN.png" alt=""></div>
@@ -304,12 +234,23 @@
       return JsPDFCtor;
     }
 
-    function setTodayIfEmpty(){
+    // === FECHA: fijar al día y bloquear ===
+    function setTodayAndLock(){
       const d=new Date(), pad=n=>String(n).padStart(2,'0');
       const iso=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-      const f=document.getElementById('fecha');if(f&&!f.value)f.value=iso;
+      const f=document.getElementById('fecha');
+      if(!f) return;
+      f.value = iso;
+      f.setAttribute('min', iso);
+      f.setAttribute('max', iso);
+      f.setAttribute('aria-readonly', 'true');
+      f.disabled = true;
+      const lock = (e)=>{ e.stopImmediatePropagation(); f.value = iso; return false; };
+      ['input','change','keydown','paste','mousedown','click','focus'].forEach(evt=>{
+        f.addEventListener(evt, lock, true);
+      });
     }
-    document.addEventListener('DOMContentLoaded',setTodayIfEmpty);
+    document.addEventListener('DOMContentLoaded', setTodayAndLock);
 
     const allowedDomains=["buenosaires.gob.ar","policiadelaciudad.gob.ar","seguridadciudad.gob.ar"];
     function isAllowedEmail(email){
@@ -317,18 +258,132 @@
       return allowedDomains.includes(email.slice(at+1).toLowerCase().trim());
     }
 
-    function validar(){
-      let ok=true;
-      const reqs=['nombre','cuil','emailSolic'];
-      reqs.forEach(id=>{
-        const el=document.getElementById(id);
-        if(!el)return;el.classList.remove('invalid');
-        if(!el.value.trim()||!el.checkValidity()){el.classList.add('invalid');ok=false;}
+    // Utilidad: limpiar a dígitos y validar largo
+    function wireDigitsOnly(id, length, required){
+      const el=document.getElementById(id);
+      if(!el) return;
+      const only=(v)=>v.replace(/\D/g,'').slice(0,length);
+      const check=()=>{
+        const clean=only(el.value||'');
+        if(el.value!==clean) el.value=clean;
+        const invalid = required ? clean.length!==length : (clean.length>0 && clean.length!==length);
+        el.classList.toggle('invalid', invalid || !el.checkValidity());
+      };
+      el.addEventListener('beforeinput', (e)=>{ if(e.data && /\D/.test(e.data)) e.preventDefault(); });
+      el.addEventListener('input', check);
+      el.addEventListener('paste', (e)=>{
+        e.preventDefault();
+        const text=(e.clipboardData||window.clipboardData).getData('text');
+        el.value=only(text); check();
       });
+      el.addEventListener('blur', check);
+    }
+
+    // NOMBRE live validation
+    function wireNameLive(id){
+      const el=document.getElementById(id);
+      if(!el) return;
+      const check=()=> el.classList.toggle('invalid', !el.checkValidity());
+      el.addEventListener('input', check);
+      el.addEventListener('blur', check);
+    }
+
+    function attachLiveValidation(){
+      wireNameLive('nombre');
+      wireDigitsOnly('inpCuil', 11, true);
+      wireDigitsOnly('telSolic', 10, false);
+      wireDigitsOnly('telResp', 10, true);
+
+      // Emails (dominio + requerido según atributo)
+      ['emailSolic','emailResp'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el) return;
+        const check=()=>{
+          const val=(el.value||'').trim();
+          const isReq=el.hasAttribute('required');
+          const invalid = (isReq && !val) || (val && !isAllowedEmail(val)) || !el.checkValidity();
+          el.classList.toggle('invalid', invalid);
+        };
+        el.addEventListener('input', check);
+        el.addEventListener('blur', check);
+      });
+
+      // Responsables: marcar en vivo (requeridos)
+      ['respNombre','respCargo','respLP'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el) return;
+        const check=()=> el.classList.toggle('invalid', !el.value.trim() || !el.checkValidity());
+        el.addEventListener('input', check);
+        el.addEventListener('blur', check);
+      });
+    }
+    document.addEventListener('DOMContentLoaded', attachLiveValidation);
+
+    function validar(){
+      let ok = true;
+
+      // Requeridos
+      const requeridos = [
+        'nombre','inpCuil','emailSolic',
+        'respNombre','respCargo','respLP','emailResp','telResp'
+      ];
+      requeridos.forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el) return;
+        el.classList.remove('invalid');
+        if(!el.value.trim() || !el.checkValidity()){
+          el.classList.add('invalid');
+          if(ok){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.reportValidity?.(); el.focus(); }
+          ok=false;
+        }
+      });
+
+      // Dominio permitido (si hay valor)
       ['emailSolic','emailResp'].forEach(id=>{
         const e=document.getElementById(id);
-        if(e&&e.value&&!isAllowedEmail(e.value)){e.classList.add('invalid');ok=false;}
+        if(e){
+          const val=(e.value||'').trim();
+          if(val && !isAllowedEmail(val)){
+            e.classList.add('invalid');
+            if(ok){ e.scrollIntoView({behavior:'smooth',block:'center'}); e.focus(); }
+            ok=false;
+          }
+        }
       });
+
+      // CUIL exacto 11
+      const cuil=document.getElementById('inpCuil');
+      if(cuil){
+        const v=(cuil.value||'').replace(/\D/g,'');
+        if(v.length!==11){
+          cuil.classList.add('invalid');
+          if(ok){ cuil.scrollIntoView({behavior:'smooth',block:'center'}); cuil.focus(); }
+          ok=false;
+        }
+      }
+
+      // Tel solicitante: si tiene algo, deben ser 10
+      const ts=document.getElementById('telSolic');
+      if(ts){
+        const v=(ts.value||'').replace(/\D/g,'');
+        if(v && v.length!==10){
+          ts.classList.add('invalid');
+          if(ok){ ts.scrollIntoView({behavior:'smooth',block:'center'}); ts.focus(); }
+          ok=false;
+        }
+      }
+
+      // Tel responsable: obligatorio 10
+      const tr=document.getElementById('telResp');
+      if(tr){
+        const v=(tr.value||'').replace(/\D/g,'');
+        if(v.length!==10){
+          tr.classList.add('invalid');
+          if(ok){ tr.scrollIntoView({behavior:'smooth',block:'center'}); tr.focus(); }
+          ok=false;
+        }
+      }
+
       return ok;
     }
 
@@ -347,10 +402,10 @@
     }
 
     document.getElementById('btnPdf').addEventListener('click',async()=>{
-      if(!validar()){alert('Complete los campos obligatorios o corrija los e-mails.');return;}
+      if(!validar()){alert('Complete/Corregí los campos marcados (CUIL, E-mails y Teléfonos).');return;}
       const hoja1=document.getElementById('hoja1');
       const hoja2=document.getElementById('instructivo');
-      const cuil=(document.getElementById('cuil')?.value||'SIN-CUIL').replace(/\D/g,'').slice(0,11)||'SIN-CUIL';
+      const cuil=(document.getElementById('inpCuil')?.value||'SIN-CUIL').replace(/\D/g,'').slice(0,11) || 'SIN-CUIL';
       try{
         const [img1,img2]=await Promise.all([nodeToDataURL(hoja1),nodeToDataURL(hoja2)]);
         const jsPDFCtor=await ensureJsPDF();
@@ -364,11 +419,11 @@
 
     document.getElementById('btnClear').addEventListener('click',()=>{
       document.querySelectorAll('#hoja1 input,#hoja1 textarea').forEach(el=>{
-        el.value='';el.classList.remove('invalid');
+        if(el.id==='fecha') return; // no tocar la fecha
+        el.value=''; el.classList.remove('invalid');
       });
-      setTodayIfEmpty();
+      setTodayAndLock();
     });
   </script>
 </body>
 </html>
-
